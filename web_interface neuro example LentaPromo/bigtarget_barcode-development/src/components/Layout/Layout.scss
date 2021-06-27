@@ -1,0 +1,60 @@
+@import "constants/colors.scss";
+
+#root,
+.App {
+  height: 100%;
+}
+
+.layout {
+  min-width: 1280px;
+  height: 100%;
+  // padding: 0 16px;
+}
+
+.barcode {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  width: 94px;
+  z-index: 101;
+}
+
+.tabbar {
+  position: fixed;
+  left: 0;
+  padding-top: 48px;
+  width: 110px;
+  height: 100%;
+  background: white;
+  z-index: 100;
+}
+
+.tab-content {
+  margin-left: 110px;
+  padding: 16px;
+  height: 100%;
+  background: white;
+
+  &.purple {
+    background: $elPurple;
+  }
+  &.yellow {
+    background: $elYellow;
+  }
+}
+
+.content-header {
+  display: inline-block;
+  padding: 0 8px;
+  line-height: 64px;
+  font-size: 41px;
+  font-weight: bold;
+  height: 64px;
+  background: $elYellow;
+  color: $elPurple;
+  text-transform: uppercase;
+
+  &.white {
+    background: white;
+  }
+}

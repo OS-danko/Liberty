@@ -1,0 +1,29 @@
+pyinstaller -w -F -i "D:\pythontoexe\ico.ico" locker.py
+-w - скрыть консоль
+-F - собрать все библиотеки в 1 exe
+-i - добавить иконку
+
+--onefile --noconsole 
+
+
+--add-data "*.png;."
+в файле spec:
+added_files = [
+    ( 'src/README.txt', '.' ),
+    ( '/mygame/data', 'data' ),
+    ( '/mygame/sfx/*.mp3', 'sfx' )
+]
+
+a = Analysis(...
+    datas = added_files,
+    ...
+)
+
+pyinstaller yourscript.spec
+
+
+получить список каталогов: ls |grep -v .png|grep -v .ico|grep -v .py
+
+сделать spec
+pyi-makespec --onefile --noconsole --add-data "D:\DZ\10 Семестр\Курсовая\SiziF2\*;."   "D:\DZ\10 Семестр\Курсовая\SiziF2\menu.py"
+

@@ -1,0 +1,7 @@
+Начать обучение
+python train.py
+Начать оценку
+python train.py --mode=evaluate
+
+
+

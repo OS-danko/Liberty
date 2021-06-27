@@ -1,0 +1,284 @@
+2. Создание тензора (многомерного массива данных) из вложенного списка ndarray
+example_list = [1,2,3]
+x = torch.tensor(example_list)
+print(x)
+
+# Вывод
+
+tensor([1, 2, 3])
+3. Клонирование тензора
+y = x.clone()
+print(y)
+
+# Вывод
+
+tensor([1, 2, 3])
+4. Получение размера и форм
+x = torch.randn((10,10))
+print(x.size())
+# или
+print(x.shape)
+
+# Вывод
+
+torch.Size([10, 10])
+torch.Size([10, 10])
+5. Конкатенация тензоров по размерности
+tensor_seq = [torch.randn(1,2),torch.randn(1,2)]
+x = torch.cat(tensor_seq, dim=0)
+print(x)
+
+# Вывод
+
+tensor([[-0.4298,  1.3190],
+        [ 0.3904, -1.4962]])
+6. Преобразование формы тензора в размер: (1, любое значение)
+x = torch.randn(10,2)
+y = x.view(1,-1)
+print(y.shape)
+
+# Вывод
+
+torch.Size([1, 20])
+7. Изменение размерности тензора
+x = torch.randn(1,2)
+print(x)
+y = x.transpose(0,1)
+print(y)
+
+# Вывод
+
+tensor([[-0.3085,  0.9356]])
+
+tensor([[-0.3085],
+        [ 0.9356]])
+8. Добавление тензору оси
+x = torch.randn(2,2)
+print(x.shape)
+y = x.unsqueeze(dim=0)                      
+print(y.shape)
+
+# Вывод
+
+torch.Size([2, 2])
+torch.Size([1, 2, 2])
+9. Удаление всех единичных размерностей
+x = torch.randn(10,10,1)
+print(x.shape)
+y = x.squeeze()
+print(y.shape)
+# Вывод
+torch.Size([10, 10, 1])
+torch.Size([10, 10])
+10. Перемножение матриц
+A = torch.ones(2,2)
+B = torch.randn(2,2)
+print(A)
+print(B)
+print(A.mm(B))
+
+# Вывод
+
+tensor([[1., 1.],
+        [1., 1.]])
+tensor([[ 0.5804,  1.2500],
+        [-0.8334,  1.1711]])
+
+tensor([[-0.2530,  2.4212],
+        [-0.2530,  2.4212]])
+11. Умножение матрицы на вектор
+A = torch.tensor([[1,2],[3,4]])
+x = torch.tensor([1,2])
+print(A.mv(x))
+
+# Вывод
+
+tensor([ 7, 10])
+12. Транспонирование матрицы
+x = torch.randn(1,2)
+print(x)
+x = x.t()
+print(x)
+
+tensor([[0.1167, 0.4135]])
+
+tensor([[0.1167],
+        [0.4135]])
+13. Проверка доступности cuda
+print(torch.cuda.is_available())
+
+# Вывод
+
+True
+14. Перемещение данных тензора из центрального процессора в графический и возвращение нового объекта
+x = torch.randn(2,2)
+print(x)
+x = x.cuda()
+print(x)
+
+# Вывод
+
+tensor([[-1.0331, -3.2458],
+        [ 0.0226,  1.3091]])
+
+tensor([[-1.0331, -3.2458],
+        [ 0.0226,  1.3091]], device='cuda:0')
+15. Перемещение данных тензора из графического процессора в центральный
+x = torch.randn(2,2).cuda()
+print(x)
+x = x.cpu()
+print(x)
+
+# Вывод
+
+tensor([[ 0.4664, -1.7070],
+        [ 1.7160,  0.0263]], device='cuda:0')
+
+tensor([[ 0.4664, -1.7070],
+        [ 1.7160,  0.0263]])
+16. Устройство-независимый код и модульность
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(device)
+
+# Вывод
+
+device(type='cuda', index=0)
+17. Копирование тензоров на устройство (графический процессор, центральный процессор)
+x = x.to(device)
+print(x)
+
+# Вывод
+
+tensor([[ 0.4664, -1.7070],
+        [ 1.7160,  0.0263]], device='cuda:0')
+18. Проверка тензора Pytorch
+print(torch.is_storage(x))
+
+# Вывод
+
+True
+19. Проверка объекта хранилища Pytorch
+print(torch.is_storage(x))
+
+# Вывод
+
+False
+20. Получение общего числа элементов во входном тензоре
+x = torch.randn(2,2) # 4 элемента
+torch.numel(x)
+
+# Вывод
+
+4
+21. Получение единичной матрицы для заданного размера
+size = 5
+print(torch.eye(size))
+
+# Вывод
+
+tensor([[1., 0., 0., 0., 0.],
+        [0., 1., 0., 0., 0.],
+        [0., 0., 1., 0., 0.],
+        [0., 0., 0., 1., 0.],
+        [0., 0., 0., 0., 1.]])
+22. Преобразование из массива numpy в тензор torch
+x = np.random.rand(2,2)
+print(torch.from_numpy(x))
+
+# Вывод
+
+tensor([[0.7407, 0.8823],
+        [0.0352, 0.5823]], dtype=torch.float64)
+23. Создание тензора из равномерно распределенных элементов (как np.linspace в numpy)
+print(np.linspace(1,5,10))
+print(torch.linspace(1, 5, steps=10))
+
+# Вывод
+
+[1.         1.44444444 1.88888889 2.33333333 2.77777778 3.22222222
+ 3.66666667 4.11111111 4.55555556 5.        ] # numpy
+
+tensor([1.0000, 1.4444, 1.8889, 2.3333, 2.7778, 3.2222, 3.6667, 4.1111, 4.5556,
+        5.0000]) # pytorch
+24. Создание тензора из логарифмически распределенных элементов
+torch.logspace(start=-10, end=10, steps=15) #logarithmic spacing
+
+# Вывод
+
+tensor([1.0000e-10, 2.6827e-09, 7.1969e-08, 1.9307e-06, 5.1795e-05, 1.3895e-03,
+        3.7276e-02, 1.0000e+00, 2.6827e+01, 7.1969e+02, 1.9307e+04, 5.1795e+05,
+        1.3895e+07, 3.7276e+08, 1.0000e+10])
+25. Разбиение тензора Pytorch на небольшие фрагменты
+x = torch.linspace(1,10,10)
+print(torch.chunk(x,chunks=5))
+
+# Вывод
+
+(tensor([1., 2.]),
+ tensor([3., 4.]),
+ tensor([5., 6.]),
+ tensor([7., 8.]),
+ tensor([ 9., 10.]))
+26. Создание базовой нейросети
+import torch
+import torch.nn as nn
+import torch
+
+class NeuralNet(nn.Module):
+    def __init__(self):
+        super(NeuralNet, self).__init__()
+        self.fc1 = nn.Linear(1,1)
+        self.relu = nn.ReLU()
+        
+    
+    def forward(self,x):
+        x = self.fc1(x)
+        x = self.relu(x)
+        
+        return x
+net = NeuralNet()
+net
+
+# Вывод
+
+NeuralNet(
+  (fc1): Linear(in_features=1, out_features=1, bias=True)
+  (relu): ReLU()
+)
+27. Создание тензоров входных и выходных данных для обучения нейросети
+x = torch.linspace(-10, 10, 2000).view(-1,1)
+y = torch.square(x)
+28. Загрузка нейросети, настройка функции потерь и оптимизатора
+model = NeuralNet()
+criterion = torch.nn.MSELoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=1e-6)
+29. Цикл обучения, дающий выходные данные каждые 10 эпох
+epochs = 50
+for t in range(epochs):
+    # Прямой проход: вычисление предсказания
+    y_pred = model(x)
+
+    # Вычисление потерь и вывод через каждые 10 итераций
+    loss = criterion(y_pred, y)
+    if t % 10 == 9:
+        print(t, loss.item())
+
+    # Нулевые градиенты, выполнение обратного прохода и обновление весов.
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+
+# Вывод
+
+9 1987.289306640625
+19 1986.6630859375
+29 1986.0374755859375
+39 1985.412353515625
+49 1984.78759765625
+
+-------------------------------
+
+
+
+
+
